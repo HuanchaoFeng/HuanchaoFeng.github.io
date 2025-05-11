@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Phoenix • All posts by \"information\" category",
+    "description": "Every day is a chance to learn something new",
+    "home_page_url": "http://example.com",
+    "items": [
+        {
+            "id": "http://example.com/2025/05/11/resume/",
+            "url": "http://example.com/2025/05/11/resume/",
+            "title": "resume",
+            "date_published": "2025-05-11T07:54:37.000Z",
+            "content_html": "",
+            "tags": [
+                "resume"
+            ]
+        }
+    ]
+}

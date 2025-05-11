@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://example.com</id>
+    <title>Phoenix • Posts by &#34;information&#34; category</title>
+    <link href="http://example.com" />
+    <updated>2025-05-11T07:54:37.000Z</updated>
+    <category term="resume" />
+    <entry>
+        <id>http://example.com/2025/05/11/resume/</id>
+        <title>resume</title>
+        <link rel="alternate" href="http://example.com/2025/05/11/resume/"/>
+        <content type="html"></content>
+        <category term="resume" />
+        <updated>2025-05-11T07:54:37.000Z</updated>
+    </entry>
+</feed>

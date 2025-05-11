@@ -5,8 +5,17 @@
         <link>http://example.com</link>
         <description>Every day is a chance to learn something new</description>
         <language>en</language>
-        <pubDate>Sun, 11 May 2025 14:17:00 +0800</pubDate>
-        <lastBuildDate>Sun, 11 May 2025 14:17:00 +0800</lastBuildDate>
+        <pubDate>Sun, 11 May 2025 15:54:37 +0800</pubDate>
+        <lastBuildDate>Sun, 11 May 2025 15:54:37 +0800</lastBuildDate>
+        <category>resume</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/05/11/resume/</guid>
+            <title>resume</title>
+            <link>http://example.com/2025/05/11/resume/</link>
+            <category>resume</category>
+            <pubDate>Sun, 11 May 2025 15:54:37 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/05/11/MyFirst-blog/</guid>
             <title>MyFirst blog</title>
