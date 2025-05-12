@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Phoenix • Posts by &#34;concept&#34; tag</title>
+        <link>http://example.com</link>
+        <description>Every day is a chance to learn something new</description>
+        <language>en</language>
+        <pubDate>Mon, 12 May 2025 15:44:46 +0800</pubDate>
+        <lastBuildDate>Mon, 12 May 2025 15:44:46 +0800</lastBuildDate>
+        <category>resume</category>
+        <category>LLM</category>
+        <category>concept</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/05/12/LLM-concept/</guid>
+            <title>LLM-concept</title>
+            <link>http://example.com/2025/05/12/LLM-concept/</link>
+            <category>LLM</category>
+            <category>concept</category>
+            <pubDate>Mon, 12 May 2025 15:44:46 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;大模型基本概念&#34;&gt;&lt;a href=&#34;#大模型基本概念&#34; class=&#34;headerlink&#34; title=&#34;大模型基本概念&#34;&gt;&lt;/a&gt;大模型基本概念&lt;/h1&gt;&lt;h2 id=&#34;目标&#34;&gt;&lt;a href=&#34;#目标&#34; class=&#34;headerlink&#34; title=&#34;目标&#34;&gt;&lt;/a&gt;目标&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;语言模型就是对自然语言的概率分布进行建模，即P(w1 w2 w3 … wn)，计算这些词构成的这句话成为合法的一句话的概率&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;计算下一个词的概率 P(wn | w1 w2 w3… wn-1) &lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:\Users\34174\AppData\Roaming\Typora\typora-user-images\image-20250512152219575.png&#34; alt=&#34;image-20250512152219575&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;发展历程&#34;&gt;&lt;a href=&#34;#发展历程&#34; class=&#34;headerlink&#34; title=&#34;发展历程&#34;&gt;&lt;/a&gt;发展历程&lt;/h2&gt;&lt;p&gt;从n-gram:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:\Users\34174\AppData\Roaming\Typora\typora-user-images\image-20250512152520160.png&#34; alt=&#34;image-20250512152520160&#34;&gt;&lt;/p&gt;
+&lt;p&gt;到neural language model: 每个词都映射成一个低维向量&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:\Users\34174\AppData\Roaming\Typora\typora-user-images\image-20250512152628359.png&#34; alt=&#34;image-20250512152628359&#34;&gt;&lt;/p&gt;
+&lt;p&gt;再到后面的transformer出现，transformer的出现，NLP进入了预训练微调阶段，也就是只需把预训练好的模型用特定任务的训练集去微调（fine-tune），即可对下游任务进行操作，这种模型是PLM。&lt;/p&gt;
+&lt;p&gt;随着OpenAI发布的1750亿个参数（GPT-3），开启LLM时代&lt;/p&gt;
+&lt;h2 id=&#34;问题发现&#34;&gt;&lt;a href=&#34;#问题发现&#34; class=&#34;headerlink&#34; title=&#34;问题发现&#34;&gt;&lt;/a&gt;问题发现&lt;/h2&gt;&lt;p&gt; • 大模型（如GPT-3）参数量极大（1750亿+），传统“预训练+微调”范式成本过高（需为每个任务调整海量参数）。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;解决方案：&lt;br&gt;• 开发新范式（ICL&amp;#x2F;Prompt），通过输入指令或示例直接引导模型，避免微调。&lt;/p&gt;
+&lt;p&gt;• 但要让模型支持这种范式，必须在预训练阶段就赋予它相关能力（如理解指令、模仿示例）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;模型构建的关键：&lt;br&gt;• 预训练阶段：用海量多样化数据（图书、网页、指令数据等）训练模型，使其隐式掌握ICL&amp;#x2F;Prompt所需的能力（如任务模式识别、指令遵循）。&lt;/p&gt;
+&lt;p&gt;• 后续阶段（SFT+RLHF）：进一步优化模型对新范式的响应质量（如更精准的指令理解、更安全的输出）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;结论：&lt;br&gt;• 新范式（ICL&amp;#x2F;Prompt）依赖特定训练的模型：只有通过大规模预训练（及后续优化）的模型，才能直接通过上下文或指令适配任务，而传统小模型无法做到这一点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;LLM的构建流程&#34;&gt;&lt;a href=&#34;#LLM的构建流程&#34; class=&#34;headerlink&#34; title=&#34;LLM的构建流程&#34;&gt;&lt;/a&gt;LLM的构建流程&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;预训练： 利用海量训练数据构建多样化内容，构建基础模型——&amp;gt;对长文本建模，使模型具有语言生成能力&lt;/li&gt;
+&lt;li&gt;有监督微调SFT：用少量高质量数据集，通过有监督训练使模型具有问答、写作的能力，数据包括：用户输入提示词和对应理想输出结果&lt;/li&gt;
+&lt;li&gt;奖励建模RM：训练一个能够判断文本质量的裁判，对同个提示词，比较SFT生成的多个输出的质量&lt;/li&gt;
+&lt;li&gt;强化学习RLHF(human feedback)：基于RM，优化SFT模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;SFT相当于学生学会答题，RM是评分老师，判断answer好坏，RLHF是学生根据老师评分改进答题策略&lt;/p&gt;
+&lt;h2 id=&#34;补充&#34;&gt;&lt;a href=&#34;#补充&#34; class=&#34;headerlink&#34; title=&#34;补充&#34;&gt;&lt;/a&gt;补充&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;N-gram 模型详解&lt;/strong&gt;&lt;br&gt; N-gram 是一种基于统计的语言模型，用于预测或生成文本中的下一个词，其核心思想是：一个词的出现概率依赖于它前面的有限个词（n-1个词）。它是自然语言处理（NLP）中最基础且广泛使用的模型之一。&lt;/p&gt;
+&lt;p&gt; N-gram的定义：&lt;/p&gt;
+&lt;p&gt;• 指文本中连续的 &lt;em&gt;n&lt;/em&gt; 个词（或字符）组成的序列。&lt;/p&gt;
+&lt;p&gt;• 例如：&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;◦ Unigram (1-gram): &amp;quot;the&amp;quot;、&amp;quot;cat&amp;quot;、&amp;quot;sat&amp;quot;（单个词）。  &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;◦ Bigram (2-gram): &amp;quot;the cat&amp;quot;、&amp;quot;cat sat&amp;quot;、&amp;quot;sat on&amp;quot;（两个连续词）。  &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;◦ Trigram (3-gram): &amp;quot;the cat sat&amp;quot;、&amp;quot;cat sat on&amp;quot;（三个连续词）。  &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;• 核心假设：&lt;/p&gt;
+&lt;p&gt;• 马尔可夫假设：当前词的概率仅依赖于前 &lt;em&gt;n-1&lt;/em&gt; 个词，而非整个历史。&lt;/p&gt;
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;◦ 例如，Bigram 模型认为 `P(sat | the cat)` ≈ `P(sat | cat)`，忽略更早的上下文。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;如何计算概率？&lt;/strong&gt;&lt;br&gt; N-gram 通过统计语料库中词序列的频率来估计概率：&lt;/p&gt;
+&lt;p&gt;计算 &lt;code&gt;P(sat | the cat)&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;P(sat∣the cat)&amp;#x3D;Count(“the cat”)Count(“the cat sat”)&lt;/p&gt;
+&lt;p&gt;若语料中 “the cat” 出现 100 次，”the cat sat” 出现 30 次，则 &lt;code&gt;P(sat | the cat) = 0.3&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;N-gram 的优缺点&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;优点&lt;/th&gt;
+&lt;th&gt;缺点&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;简单高效，计算速度快。&lt;/td&gt;
+&lt;td&gt;无法捕捉长距离依赖（如 “The cat… sat” 相隔较远时）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;小规模数据即可训练。&lt;/td&gt;
+&lt;td&gt;数据稀疏性（罕见 n-gram 概率不准确）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;曾广泛用于机器翻译、拼写检查等任务。&lt;/td&gt;
+&lt;td&gt;无法理解语义（仅统计共现频率）。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
