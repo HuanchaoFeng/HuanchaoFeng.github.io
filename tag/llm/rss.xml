@@ -25,14 +25,14 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;计算下一个词的概率 P (wn | w1 w2 w3… wn-1)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;LLM-concept/image1.png&#34; alt=&#34;image-20250512152219575&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;发展历程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#发展历程&#34;&gt;#&lt;/a&gt; 发展历程&lt;/h2&gt;
 &lt;p&gt;从 n-gram:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;LLM-concept/image2.png&#34; alt=&#34;image-20250512152520160&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image2.png&#34; alt=&#34;image-20250512152520160&#34;&gt;&lt;/p&gt;
 &lt;p&gt;到 neural language model: 每个词都映射成一个低维向量&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;LLM-concept/image3.png&#34; alt=&#34;image-20250512152628359&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image3.png&#34; alt=&#34;image-20250512152628359&#34;&gt;&lt;/p&gt;
 &lt;p&gt;再到后面的 transformer 出现，transformer 的出现，NLP 进入了预训练微调阶段，也就是只需把预训练好的模型用特定任务的训练集去微调（fine-tune），即可对下游任务进行操作，这种模型是 PLM。&lt;/p&gt;
 &lt;p&gt;随着 OpenAI 发布的 1750 亿个参数（GPT-3），开启 LLM 时代&lt;/p&gt;
 &lt;h2 id=&#34;问题发现&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#问题发现&#34;&gt;#&lt;/a&gt; 问题发现&lt;/h2&gt;
