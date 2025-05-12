@@ -138,16 +138,16 @@ N-gram 通过统计语料库中词序列的频率来估计概率：&lt;/p&gt;
             <link>http://example.com/2025/05/11/resume/</link>
             <category>resume</category>
             <pubDate>Sun, 11 May 2025 15:54:37 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;huanchaofeng-resume&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#huanchaofeng-resume&#34;&gt;#&lt;/a&gt; HuanchaoFeng Resume&lt;/h1&gt;
+            <description><![CDATA[ &lt;h1 id=&#34;resume&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#resume&#34;&gt;#&lt;/a&gt; Resume&lt;/h1&gt;
 &lt;h2 id=&#34;教育经历&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#教育经历&#34;&gt;#&lt;/a&gt; 教育经历&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;深圳大学（硕士） 2024-2027 计算机技术 硕士一等奖学金&lt;/li&gt;
-&lt;li&gt;广东财经大学（本科） 2020-2024 计算机科学与技术 学业奖学金  CET-6&lt;/li&gt;
+&lt;li&gt;广东财经大学（本科） 2020-2024 计算机科学与技术 学业奖学金  CET-6 蓝桥杯省赛二等奖&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;实习经历&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#实习经历&#34;&gt;#&lt;/a&gt; 实习经历&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;深圳迅策科技股份有限公司 	    	后端研发实习生 技术支持中心 — 政府项目组&lt;/p&gt;
+&lt;p&gt;近期：深圳迅策科技股份有限公司 	    	后端研发实习生 技术支持中心 — 政府项目组&lt;/p&gt;
 &lt;p&gt;后端研发实习生 技术支持中心 — 政府项目组&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;工作描述：负责智慧交通平台道路信息服务的后端研发&lt;/li&gt;
@@ -155,6 +155,9 @@ N-gram 通过统计语料库中词序列的频率来估计概率：&lt;/p&gt;
 &lt;li&gt;数据表设计与查询优化：独立完成交通流量、违法信息、道路信息等 5 个模块的数据设计，包含数据表设计、字段抽象与设计，同时在百万级数据的交通流量表设计上建立索引，将平均回表次数从 160w 次优化为 200 次&lt;/li&gt;
 &lt;li&gt;道路模块开发：负责相关需求开发，并基于内部 CI/CD 平台搭建自动化测试流水线，保证在提交测试前各接口单元测试覆盖率达到 70% 以上，核心链路全覆盖&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其他：望海康信、CVTE&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;项目经历&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#项目经历&#34;&gt;#&lt;/a&gt; 项目经历&lt;/h2&gt;
