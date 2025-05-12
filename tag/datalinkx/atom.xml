@@ -44,7 +44,7 @@
 &lt;p&gt;​       该项目是支持异构数据源同步的，所以会有很多种数据源，进行每种数据源连接是确实可以使用 if else 去定义，但是这并不好维护，而且可拓展性十分差，想象一下每次新增一个数据源就写多一个 if else，代码的可读性也会很差，所以这里会基于模板模式和工厂模式对数据源驱动的获取进行抽象。&lt;/p&gt;
 &lt;p&gt;​	我们把数据源实例抽象为几个步骤，读写分离，然后分别定义为接口，将支持 JDBC 的数据源做一种实现，不支持 JDBC 的数据源也做一种实现。每种实现又有一个基础类去实现基础功能。&lt;/p&gt;
 &lt;p&gt;如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/DatalinkX-project/image1.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;DatalinkX-project/image1.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;DsDriverFactory 遵循工厂设计原则，每个数据源必要信息通过压缩算法返回一个唯一字符串 connectld，DsDriverFactory 向外暴露 getDsReader、getDsWriter 方法，通过解析 connectld 得到数据源 type，根据数据源 type 获取对应 Driver.class 并通过反射生成对应的驱动对象。&lt;/p&gt;
@@ -61,7 +61,7 @@
 &lt;li&gt;
 &lt;h3 id=&#34;xxl-job平台&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#xxl-job平台&#34;&gt;#&lt;/a&gt; XXL-Job 平台&lt;/h3&gt;
 &lt;p&gt;​	xxl-job 是一个分布式任务调度平台，核心思想是将调度任务抽象成为调度器和执行器，平台本身不承担业务逻辑，只负责发起调度请求后，由执行器接收调度请求并执行任务，这里的任务被抽象为分散的 JobHandler。JobHandler 分散到各个业务代码中，依 netty 保持与调度器的交互，通过这种方式即可实现调度与任务相互解耦，从而提高系统整体的稳定性和拓展性。如下图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/DatalinkX-Project/image2.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;image2.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;调度器只需要借助 maven 打包 xxl-job 的 admin 即可，然后 java -jar 把 jar 包运行起来即可，或者是用 docker 直接部署，而执行器则放在项目中的 Job 模块下，使用 @XxlJob (“XXX”) 在方法上定义执行器即可&lt;/p&gt;
