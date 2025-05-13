@@ -4,13 +4,13 @@
     <title>Phoenix • Posts by &#34;szu_mentors&#34; category</title>
     <link href="http://example.com" />
     <updated>2025-05-12T13:56:43.000Z</updated>
-    <category term="datalinkx" />
     <category term="LLM" />
     <category term="concept" />
+    <category term="datalinkx" />
+    <category term="transformer" />
     <category term="mentor" />
     <category term="szu_bdsc" />
     <category term="resume" />
-    <category term="transformer" />
     <entry>
         <id>http://example.com/2025/05/12/mentorRecommend/</id>
         <title>mentorRecommend</title>
