@@ -9,9 +9,11 @@
         <lastBuildDate>Tue, 13 May 2025 00:35:28 +0800</lastBuildDate>
         <category>LLM</category>
         <category>concept</category>
-        <category>datalinkx</category>
-        <category>transformer</category>
+        <category>Bert</category>
+        <category>GPT</category>
         <category>resume</category>
+        <category>transformer</category>
+        <category>datalinkx</category>
         <item>
             <guid isPermalink="true">http://example.com/2025/05/13/DatalinkX/</guid>
             <title>DatalinkX</title>

@@ -6,9 +6,11 @@
     <updated>2025-05-11T07:54:37.000Z</updated>
     <category term="LLM" />
     <category term="concept" />
-    <category term="datalinkx" />
-    <category term="transformer" />
+    <category term="Bert" />
+    <category term="GPT" />
     <category term="resume" />
+    <category term="transformer" />
+    <category term="datalinkx" />
     <entry>
         <id>http://example.com/2025/05/11/resume/</id>
         <title>resume</title>
