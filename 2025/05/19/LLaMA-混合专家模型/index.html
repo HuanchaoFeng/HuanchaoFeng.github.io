@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLaMA&amp;混合专家模型 | Phoenix</title><meta name="author" content="Phoenix"><meta name="copyright" content="Phoenix"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="LLaMA  model  structure​	LLaMA是基于transformer的decoder部分构建的，采用前置层归一化、使用RMSNorm规划函数，激活函数更改为SwiGLU，使用旋转位置嵌入更改的decoder模型。更改的位置如下所示：   RMSNorm函数：  原始层归一化函数：     对比 LayerNorm RMSNorm    归一化目标 均值中心化 + 方差缩放 仅均">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>LLaMA&amp;混合专家模型 | Phoenix</title><meta name="author" content="Phoenix"><meta name="copyright" content="Phoenix"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="# LLaMA  model  structure ​	LLaMA 是基于 transformer 的 decoder 部分构建的，采用前置层归一化、使用 RMSNorm 规划函数，激活函数更改为 SwiGLU，使用旋转位置嵌入更改的 decoder 模型。更改的位置如下所示：    RMSNorm 函数：  原始层归一化函数：     对比 LayerNorm RMSNorm     归一化目标">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LLaMA&amp;混合专家模型">
 <meta property="og:url" content="http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Phoenix">
-<meta property="og:description" content="LLaMA  model  structure​	LLaMA是基于transformer的decoder部分构建的，采用前置层归一化、使用RMSNorm规划函数，激活函数更改为SwiGLU，使用旋转位置嵌入更改的decoder模型。更改的位置如下所示：   RMSNorm函数：  原始层归一化函数：     对比 LayerNorm RMSNorm    归一化目标 均值中心化 + 方差缩放 仅均">
+<meta property="og:description" content="# LLaMA  model  structure ​	LLaMA 是基于 transformer 的 decoder 部分构建的，采用前置层归一化、使用 RMSNorm 规划函数，激活函数更改为 SwiGLU，使用旋转位置嵌入更改的 decoder 模型。更改的位置如下所示：    RMSNorm 函数：  原始层归一化函数：     对比 LayerNorm RMSNorm     归一化目标">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/butterfly-icon.png">
 <meta property="article:published_time" content="2025-05-19T10:50:11.000Z">
@@ -160,65 +160,74 @@
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default_top_img.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Phoenix</span></a><a class="nav-page-title" href="/"><span class="site-name">LLaMA&amp;混合专家模型</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">LLaMA&amp;混合专家模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-19T10:50:11.000Z" title="Created 2025-05-19 18:50:11">2025-05-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-19T11:30:27.429Z" title="Updated 2025-05-19 19:30:27">2025-05-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/LLM/">LLM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="LLaMA-model-structure"><a href="#LLaMA-model-structure" class="headerlink" title="LLaMA  model  structure"></a>LLaMA  model  structure</h2><p>​	LLaMA是基于transformer的decoder部分构建的，采用前置层归一化、使用RMSNorm规划函数，激活函数更改为SwiGLU，使用旋转位置嵌入更改的decoder模型。更改的位置如下所示：</p>
-<p><img src="/image1.png" alt="image1"></p>
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default_top_img.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Phoenix</span></a><a class="nav-page-title" href="/"><span class="site-name">LLaMA&amp;混合专家模型</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">LLaMA&amp;混合专家模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-19T10:50:11.000Z" title="Created 2025-05-19 18:50:11">2025-05-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-05-19T11:30:27.429Z" title="Updated 2025-05-19 19:30:27">2025-05-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/LLM/">LLM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="llama-model-structure"><a class="markdownIt-Anchor" href="#llama-model-structure">#</a> LLaMA  model  structure</h2>
+<p>​	LLaMA 是基于 transformer 的 decoder 部分构建的，采用前置层归一化、使用 RMSNorm 规划函数，激活函数更改为 SwiGLU，使用旋转位置嵌入更改的 decoder 模型。更改的位置如下所示：</p>
+<p><img src="image1.png" alt="image1"></p>
 <ul>
-<li><p>RMSNorm函数：</p>
-<p><img src="/image2.png" alt="image2"></p>
+<li>
+<p>RMSNorm 函数：</p>
+<p><img src="image2.png" alt="image2"></p>
 <p>原始层归一化函数：</p>
-<p><img src="/image3.png" alt="image2"></p>
+<p><img src="image3.png" alt="image2"></p>
 <table>
 <thead>
 <tr>
-<th align="center"><strong>对比</strong></th>
-<th align="center"><strong>LayerNorm</strong></th>
-<th align="center"><strong>RMSNorm</strong></th>
+<th style="text-align:center"><strong>对比</strong></th>
+<th style="text-align:center"><strong>LayerNorm</strong></th>
+<th style="text-align:center"><strong>RMSNorm</strong></th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>归一化目标</strong></td>
-<td align="center">均值中心化 + 方差缩放</td>
-<td align="center">仅均方根（RMS）缩放</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>归一化目标</strong></td>
+<td style="text-align:center">均值中心化 + 方差缩放</td>
+<td style="text-align:center">仅均方根（RMS）缩放</td>
 </tr>
 <tr>
-<td align="center"><strong>计算复杂度</strong></td>
-<td align="center">较高（需计算均值和方差）</td>
-<td align="center">较低（仅需均方值）</td>
+<td style="text-align:center"><strong>计算复杂度</strong></td>
+<td style="text-align:center">较高（需计算均值和方差）</td>
+<td style="text-align:center">较低（仅需均方值）</td>
 </tr>
 <tr>
-<td align="center"><strong>参数数量</strong></td>
-<td align="center"><em>γ</em>+<em>β</em>（2d 参数）</td>
-<td align="center">仅 <em>γ</em>（d 参数）</td>
+<td style="text-align:center"><strong>参数数量</strong></td>
+<td style="text-align:center"><em>γ</em>+<em>β</em>（2d 参数）</td>
+<td style="text-align:center">仅 <em>γ</em>（d 参数）</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
-<li><p>SwiGLU</p>
-<p>SwiGLU是门控线性单元（GLU）的变体，公式如下：<br><img src="/image4.png" alt="image2"></p>
-<p><img src="/image5.png" alt="image2"></p>
-<p>第二个公式的激活函数是sigmoid，sigmoid函数特点：</p>
+<li>
+<p>SwiGLU</p>
+<p>SwiGLU 是门控线性单元（GLU）的变体，公式如下：<br>
+<img src="image4.png" alt="image2"></p>
+<p><img src="image5.png" alt="image2"></p>
+<p>第二个公式的激活函数是 sigmoid，sigmoid 函数特点：</p>
 </li>
 </ul>
-<p><img src="/image6.png" alt="image2"></p>
-<p>当β趋向于0时，相当于y&#x3D;x&#x2F;2，线性函数，当β趋向于无穷时（x&gt;0,x&lt;0,x&#x3D;0)，相当于ReLU函数，当β&#x3D;1，swish光滑且非单调。</p>
-<p>Swish(xW)为门控权重（相当于选择遗忘比例），用权重对xV逐元素加权，用W2映射回原维度。</p>
+<p><img src="image6.png" alt="image2"></p>
+<p>当 β 趋向于 0 时，相当于 y=x/2，线性函数，当 β 趋向于无穷时（x&gt;0,x&lt;0,x=0)，相当于 ReLU 函数，当 β=1，swish 光滑且非单调。</p>
+<p>Swish (xW) 为门控权重（相当于选择遗忘比例），用权重对 xV 逐元素加权，用 W2 映射回原维度。</p>
 <ul>
-<li><p>RoPE（待）</p>
-<p>传统PE，model需要学习隐式位置关系，而RoPE通过旋转矩阵直接编码位置，即将位置信息通过旋转矩阵融合key\query向量中，直接建模相对位置依赖关系，value是不需要旋转的:</p>
-<p><img src="/image7.png" alt="image2"></p>
+<li>
+<p>RoPE（待）</p>
+<p>传统 PE，model 需要学习隐式位置关系，而 RoPE 通过旋转矩阵直接编码位置，即将位置信息通过旋转矩阵融合 key\query 向量中，直接建模相对位置依赖关系，value 是不需要旋转的:</p>
+<p><img src="image7.png" alt="image2"></p>
 </li>
 </ul>
-<p>以上三个改变与原decoder结合实现了LLaMA</p>
-<h2 id="注意力机制优化"><a href="#注意力机制优化" class="headerlink" title="注意力机制优化"></a>注意力机制优化</h2><p>在 Transformer 结构中，自注意力机制的时间和存储复杂度与序列的长度呈平方的关系，因此占用了大量的计算设备内存并消耗了大量的计算资源，比如：</p>
+<p>以上三个改变与原 decoder 结合实现了 LLaMA</p>
+<h2 id="注意力机制优化"><a class="markdownIt-Anchor" href="#注意力机制优化">#</a> 注意力机制优化</h2>
+<p>在 Transformer 结构中，自注意力机制的时间和存储复杂度与序列的长度呈平方的关系，因此占用了大量的计算设备内存并消耗了大量的计算资源，比如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span>: Q K </span><br><span class="line">Q = [](seq_len*vector_len)</span><br><span class="line">K = [](seq_len*vector_len)</span><br><span class="line">Q*K(转置) = seq_len * seq_len</span><br></pre></td></tr></table></figure>
-
 <p>那么就有这种情况：</p>
 <ul>
 <li><strong>显存占用</strong>：</li>
-<li><strong>计算时间</strong>：<br>每次注意力计算需 seq_len方 * d 次操作，<em>seq_len&#x3D;32</em>k*, <em>d</em>&#x3D;1024 时约为 10的12 次方次操作。</li>
+<li><strong>计算时间</strong>：<br>
+每次注意力计算需 seq_len 方 * d 次操作，<em>seq_len=32</em>k*, <em>d</em>=1024 时约为 10 的 12 次方次操作。</li>
 </ul>
 <p>所以需要方法去优化这一问题，以下举例两种方法：</p>
 <ul>
-<li><p>稀疏注意力</p>
+<li>
+<p>稀疏注意力</p>
 <ul>
 <li>全局注意力：在稀疏注意力中保留少量全局节点（如 [CLS] token 或特定位置），这些节点可以与序列中<strong>所有其他位置</strong>交互。</li>
 <li>带状注意力：每个 Query 只与<strong>固定宽度邻域内</strong>的 Key 交互（类似对角带状矩阵）</li>
@@ -226,61 +235,68 @@
 <li>随机注意力：每个 Query 随机选择 <em>r</em> 个位置进行交互</li>
 <li>局部块注意力：多个不重叠块交互</li>
 </ul>
-<p>一般利用上述的复合模式s</p>
+<p>一般利用上述的复合模式 s</p>
 </li>
-<li><p>低秩注意力:</p>
-<p><img src="/image8.jpg" alt="image2"></p>
+<li>
+<p>低秩注意力:</p>
+<p><img src="image8.jpg" alt="image2"></p>
 </li>
 </ul>
-<h2 id="混合专家模型"><a href="#混合专家模型" class="headerlink" title="混合专家模型"></a>混合专家模型</h2><p>​	混合专家模型 (MixedExpert Models，MoEs) 日益受到关注。依据大模型缩放法则，模型规模是提升性能的关键，然而规模扩大必然使计算资源大幅增加。因此，在有限计算资源预算下，如何用更少训练步数训练更大模型成为关键问题。为解决该问题，混合专家模型基于一个简洁的思想：模型不同部分（即“专家”）专注不同任务或数据层面。</p>
+<h2 id="混合专家模型"><a class="markdownIt-Anchor" href="#混合专家模型">#</a> 混合专家模型</h2>
+<p>​	混合专家模型 (MixedExpert Models，MoEs) 日益受到关注。依据大模型缩放法则，模型规模是提升性能的关键，然而规模扩大必然使计算资源大幅增加。因此，在有限计算资源预算下，如何用更少训练步数训练更大模型成为关键问题。为解决该问题，混合专家模型基于一个简洁的思想：模型不同部分（即 “专家”）专注不同任务或数据层面。</p>
 <p>其实就是把模型内部的一组专用子网络，每个子网络负责处理数据中特定类型的任务，如：</p>
 <ul>
-<li>输入句子是数学问题 → 激活“数学专家”</li>
-<li>输入是诗歌 → 激活“文学专家”</li>
+<li>输入句子是数学问题 → 激活 “数学专家”</li>
+<li>输入是诗歌 → 激活 “文学专家”</li>
 </ul>
-<p>优势：若model有100个专家，每次输入仅用2个，计算量少，而且每个专家通过训练集中学习特定模式，比通用模块更高效。</p>
+<p>优势：若 model 有 100 个专家，每次输入仅用 2 个，计算量少，而且每个专家通过训练集中学习特定模式，比通用模块更高效。</p>
 <p>混合专家模型按照门控网络（Gate）类型，可以从广义上讲可以分为三个大类：稀疏混合专家模型（Sparse MoE）、稠密混合专家模型（Dense MoE）、软混合专家模型（Soft MoE）：</p>
 <ul>
-<li><p>稀疏混合专家模型：input之后，门控网络仅激活少数专家</p>
+<li>
+<p>稀疏混合专家模型：input 之后，门控网络仅激活少数专家</p>
 </li>
-<li><p>稠密混合专家模型：所有专家激活，甲醛组合输出，这个是要计算每个wi,bi与x的结果</p>
+<li>
+<p>稠密混合专家模型：所有专家激活，甲醛组合输出，这个是要计算每个 wi,bi 与 x 的结果</p>
 </li>
-<li><p>软混合专家模型：门控网络分配的权重直接融合不同专家的参数，得到w(融合)，b(融合)，融合与x计算&#x3D;w*x+b</p>
+<li>
+<p>软混合专家模型：门控网络分配的权重直接融合不同专家的参数，得到 w (融合)，b (融合)，融合与 x 计算 = w*x+b</p>
 <table>
 <thead>
 <tr>
-<th align="center"><strong>类型</strong></th>
-<th align="center"><strong>专家激活方式</strong></th>
-<th align="center"><strong>计算量</strong></th>
-<th align="center"><strong>参数量扩展性</strong></th>
-<th align="center"><strong>典型场景</strong></th>
+<th style="text-align:center"><strong>类型</strong></th>
+<th style="text-align:center"><strong>专家激活方式</strong></th>
+<th style="text-align:center"><strong>计算量</strong></th>
+<th style="text-align:center"><strong>参数量扩展性</strong></th>
+<th style="text-align:center"><strong>典型场景</strong></th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>稀疏MoE</strong></td>
-<td align="center">硬性Top-k选择（如k&#x3D;2）</td>
-<td align="center"><em>O</em>(<em>k</em>⋅FFN)</td>
-<td align="center">极高（万亿级）</td>
-<td align="center">大规模预训练（Mixtral, GPT-4）</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>稀疏 MoE</strong></td>
+<td style="text-align:center">硬性 Top-k 选择（如 k=2）</td>
+<td style="text-align:center"><em>O</em>(<em>k</em>⋅FFN)</td>
+<td style="text-align:center">极高（万亿级）</td>
+<td style="text-align:center">大规模预训练（Mixtral, GPT-4）</td>
 </tr>
 <tr>
-<td align="center"><strong>稠密MoE</strong></td>
-<td align="center">所有专家加权求和</td>
-<td align="center"><em>O</em>(<em>N</em>⋅FFN)</td>
-<td align="center">低（十亿级）</td>
-<td align="center">小规模多任务学习</td>
+<td style="text-align:center"><strong>稠密 MoE</strong></td>
+<td style="text-align:center">所有专家加权求和</td>
+<td style="text-align:center"><em>O</em>(<em>N</em>⋅FFN)</td>
+<td style="text-align:center">低（十亿级）</td>
+<td style="text-align:center">小规模多任务学习</td>
 </tr>
 <tr>
-<td align="center"><strong>软MoE</strong></td>
-<td align="center">软性稀疏权重</td>
-<td align="center"><em>O</em>(<em>N</em>⋅FFN)</td>
-<td align="center">中（百亿级）</td>
-<td align="center">平衡效率与稳定性需求</td>
+<td style="text-align:center"><strong>软 MoE</strong></td>
+<td style="text-align:center">软性稀疏权重</td>
+<td style="text-align:center"><em>O</em>(<em>N</em>⋅FFN)</td>
+<td style="text-align:center">中（百亿级）</td>
+<td style="text-align:center">平衡效率与稳定性需求</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Phoenix</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/">http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/">混合专家模型</a><a class="post-meta__tags" href="/tags/LLaMA/">LLaMA</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/05/17/GPT-BertBuild/" title="GPT&amp;BertBuild"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">GPT&BertBuild</div></div><div class="info-2"><div class="info-item-1">生成式预训练语言模型GPTGPT的模型结构，由多个transformer的decoder组成，结构如下：  该模型利用的是transformer的解码器部分，训练和推理的过程是类似的，12层transformer模块都在做类似的事情，到最后一层后输出预测的分数（映射到词分类中，得到预测的分数&#x2F;置信度）  有监督下游任务微调： 在进行下游任务微调时，仅使用GPT的最后一层的最后一个词的隐藏状态，同个全连接层映射到标签空间。因为每个词的隐藏状态都聚合了左侧所有历史词的信息，因此最后一个词的隐藏状态天然编码了整个序列的全局语义。 同时再进行微调的时候，可能会出现模型遗忘预训练阶段学习的通用只是表示，损失通用与泛化能力，出现灾难性遗忘的问题，所以通常采用混合预训练任务损失和下游微调损失缓解这一问题，Loss Function如下:   Bert模型构建Bert模型一般是基于Transformer的编码器部分构建的，是一个相当于完形填空(mask)的模型，是考虑双向的模型（同时利用两侧信息） 例子： 12345678910111213141516171819input:the c...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Phoenix</div><div class="author-info-description">Every day is a chance to learn something new</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/HuanchaoFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/2301_78214059?type=blog" target="_blank" title=""><i class="fa fa-book-open"></i></a><a class="social-icon" href="/2410673017@mails.szu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaMA-model-structure"><span class="toc-number">1.</span> <span class="toc-text">LLaMA  model  structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">注意力机制优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">混合专家模型</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/" title="LLaMA&amp;混合专家模型">LLaMA&amp;混合专家模型</a><time datetime="2025-05-19T10:50:11.000Z" title="Created 2025-05-19 18:50:11">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/17/GPT-BertBuild/" title="GPT&amp;BertBuild">GPT&amp;BertBuild</a><time datetime="2025-05-16T16:37:02.000Z" title="Created 2025-05-17 00:37:02">2025-05-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/13/Transformer/" title="Transformer">Transformer</a><time datetime="2025-05-13T07:07:29.000Z" title="Created 2025-05-13 15:07:29">2025-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/13/DatalinkX/" title="DatalinkX">DatalinkX</a><time datetime="2025-05-12T16:35:28.000Z" title="Created 2025-05-13 00:35:28">2025-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/LLM-concept/" title="LLM-concept">LLM-concept</a><time datetime="2025-05-12T07:54:00.000Z" title="Created 2025-05-12 15:54:00">2025-05-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By Phoenix</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Phoenix</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/">http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/">混合专家模型</a><a class="post-meta__tags" href="/tags/LLaMA/">LLaMA</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/05/17/GPT-BertBuild/" title="GPT&amp;BertBuild"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">GPT&BertBuild</div></div><div class="info-2"><div class="info-item-1"># 生成式预训练语言模型 GPT GPT 的模型结构，由多个 transformer 的 decoder 组成，结构如下：  该模型利用的是 transformer 的解码器部分，训练和推理的过程是类似的，12 层 transformer 模块都在做类似的事情，到最后一层后输出预测的分数（映射到词分类中，得到预测的分数 / 置信度）   有监督下游任务微调： 在进行下游任务微调时，仅使用 GPT 的最后一层的最后一个词的隐藏状态，同个全连接层映射到标签空间。因为每个词的隐藏状态都聚合了左侧所有历史词的信息，因此最后一个词的隐藏状态天然编码了整个序列的全局语义。 同时再进行微调的时候，可能会出现模型遗忘预训练阶段学习的通用只是表示，损失通用与泛化能力，出现灾难性遗忘的问题，所以通常采用混合预训练任务损失和下游微调损失缓解这一问题，Loss Function 如下:    # Bert 模型构建 Bert 模型一般是基于 Transformer 的编码器部分构建的，是一个相当于完形填空 (mask) 的模型，是考虑双向的模型（同时利用两侧信息） 例子： 123456789101112...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Phoenix</div><div class="author-info-description">Every day is a chance to learn something new</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/HuanchaoFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/2301_78214059?type=blog" target="_blank" title=""><i class="fa fa-book-open"></i></a><a class="social-icon" href="/2410673017@mails.szu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#llama-model-structure"><span class="toc-number">1.</span> <span class="toc-text"> LLaMA  model  structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6%E4%BC%98%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text"> 注意力机制优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text"> 混合专家模型</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/" title="LLaMA&amp;混合专家模型">LLaMA&amp;混合专家模型</a><time datetime="2025-05-19T10:50:11.000Z" title="Created 2025-05-19 18:50:11">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/17/GPT-BertBuild/" title="GPT&amp;BertBuild">GPT&amp;BertBuild</a><time datetime="2025-05-16T16:37:02.000Z" title="Created 2025-05-17 00:37:02">2025-05-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/13/Transformer/" title="Transformer">Transformer</a><time datetime="2025-05-13T07:07:29.000Z" title="Created 2025-05-13 15:07:29">2025-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/13/DatalinkX/" title="DatalinkX">DatalinkX</a><time datetime="2025-05-12T16:35:28.000Z" title="Created 2025-05-13 00:35:28">2025-05-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/12/LLM-concept/" title="LLM-concept">LLM-concept</a><time datetime="2025-05-12T07:54:00.000Z" title="Created 2025-05-12 15:54:00">2025-05-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By Phoenix</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
 POWERMODE.shake = true;
 POWERMODE.mobile = false;
 document.body.addEventListener('input', POWERMODE);
