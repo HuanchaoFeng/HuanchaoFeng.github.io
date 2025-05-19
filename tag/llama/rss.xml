@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Phoenix • Posts by &#34;llama&#34; tag</title>
+        <link>http://example.com</link>
+        <description>Every day is a chance to learn something new</description>
+        <language>en</language>
+        <pubDate>Mon, 19 May 2025 18:50:11 +0800</pubDate>
+        <lastBuildDate>Mon, 19 May 2025 18:50:11 +0800</lastBuildDate>
+        <category>datalinkx</category>
+        <category>LLM</category>
+        <category>concept</category>
+        <category>Bert</category>
+        <category>GPT</category>
+        <category>混合专家模型</category>
+        <category>LLaMA</category>
+        <category>resume</category>
+        <category>transformer</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/</guid>
+            <title>LLaMA&amp;混合专家模型</title>
+            <link>http://example.com/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/</link>
+            <category>混合专家模型</category>
+            <category>LLaMA</category>
+            <pubDate>Mon, 19 May 2025 18:50:11 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;LLaMA-model-structure&#34;&gt;&lt;a href=&#34;#LLaMA-model-structure&#34; class=&#34;headerlink&#34; title=&#34;LLaMA  model  structure&#34;&gt;&lt;/a&gt;LLaMA  model  structure&lt;/h2&gt;&lt;p&gt;​	LLaMA是基于transformer的decoder部分构建的，采用前置层归一化、使用RMSNorm规划函数，激活函数更改为SwiGLU，使用旋转位置嵌入更改的decoder模型。更改的位置如下所示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image1.png&#34; alt=&#34;image1&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;RMSNorm函数：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image2.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;原始层归一化函数：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image3.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;对比&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;LayerNorm&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;RMSNorm&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;归一化目标&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;均值中心化 + 方差缩放&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;仅均方根（RMS）缩放&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;计算复杂度&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;较高（需计算均值和方差）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;较低（仅需均方值）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;参数数量&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;em&gt;γ&lt;/em&gt;+&lt;em&gt;β&lt;/em&gt;（2d 参数）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;仅 &lt;em&gt;γ&lt;/em&gt;（d 参数）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SwiGLU&lt;/p&gt;
+&lt;p&gt;SwiGLU是门控线性单元（GLU）的变体，公式如下：&lt;br&gt;&lt;img src=&#34;/image4.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image5.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;第二个公式的激活函数是sigmoid，sigmoid函数特点：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;/image6.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当β趋向于0时，相当于y&amp;#x3D;x&amp;#x2F;2，线性函数，当β趋向于无穷时（x&amp;gt;0,x&amp;lt;0,x&amp;#x3D;0)，相当于ReLU函数，当β&amp;#x3D;1，swish光滑且非单调。&lt;/p&gt;
+&lt;p&gt;Swish(xW)为门控权重（相当于选择遗忘比例），用权重对xV逐元素加权，用W2映射回原维度。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;RoPE（待）&lt;/p&gt;
+&lt;p&gt;传统PE，model需要学习隐式位置关系，而RoPE通过旋转矩阵直接编码位置，即将位置信息通过旋转矩阵融合key\query向量中，直接建模相对位置依赖关系，value是不需要旋转的:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image7.png&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上三个改变与原decoder结合实现了LLaMA&lt;/p&gt;
+&lt;h2 id=&#34;注意力机制优化&#34;&gt;&lt;a href=&#34;#注意力机制优化&#34; class=&#34;headerlink&#34; title=&#34;注意力机制优化&#34;&gt;&lt;/a&gt;注意力机制优化&lt;/h2&gt;&lt;p&gt;在 Transformer 结构中，自注意力机制的时间和存储复杂度与序列的长度呈平方的关系，因此占用了大量的计算设备内存并消耗了大量的计算资源，比如：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;input&lt;/span&gt;: Q K &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Q = [](seq_len*vector_len)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;K = [](seq_len*vector_len)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Q*K(转置) = seq_len * seq_len&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;那么就有这种情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;显存占用&lt;/strong&gt;：&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;计算时间&lt;/strong&gt;：&lt;br&gt;每次注意力计算需 seq_len方 * d 次操作，&lt;em&gt;seq_len&amp;#x3D;32&lt;/em&gt;k*, &lt;em&gt;d&lt;/em&gt;&amp;#x3D;1024 时约为 10的12 次方次操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以需要方法去优化这一问题，以下举例两种方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;稀疏注意力&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全局注意力：在稀疏注意力中保留少量全局节点（如 [CLS] token 或特定位置），这些节点可以与序列中&lt;strong&gt;所有其他位置&lt;/strong&gt;交互。&lt;/li&gt;
+&lt;li&gt;带状注意力：每个 Query 只与&lt;strong&gt;固定宽度邻域内&lt;/strong&gt;的 Key 交互（类似对角带状矩阵）&lt;/li&gt;
+&lt;li&gt;膨胀注意力：以&lt;strong&gt;固定间隔跳跃采样&lt;/strong&gt; Key&lt;/li&gt;
+&lt;li&gt;随机注意力：每个 Query 随机选择 &lt;em&gt;r&lt;/em&gt; 个位置进行交互&lt;/li&gt;
+&lt;li&gt;局部块注意力：多个不重叠块交互&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一般利用上述的复合模式s&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;低秩注意力:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/image8.jpg&#34; alt=&#34;image2&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;混合专家模型&#34;&gt;&lt;a href=&#34;#混合专家模型&#34; class=&#34;headerlink&#34; title=&#34;混合专家模型&#34;&gt;&lt;/a&gt;混合专家模型&lt;/h2&gt;&lt;p&gt;​	混合专家模型 (MixedExpert Models，MoEs) 日益受到关注。依据大模型缩放法则，模型规模是提升性能的关键，然而规模扩大必然使计算资源大幅增加。因此，在有限计算资源预算下，如何用更少训练步数训练更大模型成为关键问题。为解决该问题，混合专家模型基于一个简洁的思想：模型不同部分（即“专家”）专注不同任务或数据层面。&lt;/p&gt;
+&lt;p&gt;其实就是把模型内部的一组专用子网络，每个子网络负责处理数据中特定类型的任务，如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;输入句子是数学问题 → 激活“数学专家”&lt;/li&gt;
+&lt;li&gt;输入是诗歌 → 激活“文学专家”&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优势：若model有100个专家，每次输入仅用2个，计算量少，而且每个专家通过训练集中学习特定模式，比通用模块更高效。&lt;/p&gt;
+&lt;p&gt;混合专家模型按照门控网络（Gate）类型，可以从广义上讲可以分为三个大类：稀疏混合专家模型（Sparse MoE）、稠密混合专家模型（Dense MoE）、软混合专家模型（Soft MoE）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;稀疏混合专家模型：input之后，门控网络仅激活少数专家&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;稠密混合专家模型：所有专家激活，甲醛组合输出，这个是要计算每个wi,bi与x的结果&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;软混合专家模型：门控网络分配的权重直接融合不同专家的参数，得到w(融合)，b(融合)，融合与x计算&amp;#x3D;w*x+b&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;类型&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;专家激活方式&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;计算量&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;参数量扩展性&lt;/strong&gt;&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;&lt;strong&gt;典型场景&lt;/strong&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;稀疏MoE&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;硬性Top-k选择（如k&amp;#x3D;2）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;em&gt;O&lt;/em&gt;(&lt;em&gt;k&lt;/em&gt;⋅FFN)&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;极高（万亿级）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;大规模预训练（Mixtral, GPT-4）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;稠密MoE&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;所有专家加权求和&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;em&gt;O&lt;/em&gt;(&lt;em&gt;N&lt;/em&gt;⋅FFN)&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;低（十亿级）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;小规模多任务学习&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;strong&gt;软MoE&lt;/strong&gt;&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;软性稀疏权重&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;&lt;em&gt;O&lt;/em&gt;(&lt;em&gt;N&lt;/em&gt;⋅FFN)&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;中（百亿级）&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;平衡效率与稳定性需求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
