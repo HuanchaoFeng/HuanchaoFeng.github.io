@@ -5,8 +5,8 @@
         <link>http://example.com</link>
         <description>Every day is a chance to learn something new</description>
         <language>en</language>
-        <pubDate>Tue, 13 May 2025 00:35:28 +0800</pubDate>
-        <lastBuildDate>Tue, 13 May 2025 00:35:28 +0800</lastBuildDate>
+        <pubDate>Tue, 25 Nov 2025 21:40:43 +0800</pubDate>
+        <lastBuildDate>Tue, 25 Nov 2025 21:40:43 +0800</lastBuildDate>
         <category>datalinkx</category>
         <category>混合专家模型</category>
         <category>LLaMA</category>
@@ -16,7 +16,120 @@
         <category>GPT</category>
         <category>transformer</category>
         <category>resume</category>
-        <category>paper</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/</guid>
+            <title>Datalinkx模块讲解1</title>
+            <link>http://example.com/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/</link>
+            <category>datalinkx</category>
+            <pubDate>Tue, 25 Nov 2025 21:40:43 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;datalinkx-messagehub与datalinkx-sse&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datalinkx-messagehub与datalinkx-sse&#34;&gt;#&lt;/a&gt; Datalinkx-messageHub 与 Datalinkx-SSE&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;用于 datalinkx-job 和 datalinkx-server 之间的异步通信，这个模块只有在推送流转进度中才使用，job 是生成者，检测流转任务的进度数据后，调用生产者 api 把数据发送到 redis 中，datlainkx-sse 是消费者，注册一个常驻代理线程，实时监控 redis 中的数据，监听到后，回调到标记了 @MessageHub 注解的方法中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;redis-stream结构作为消息队列&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#redis-stream结构作为消息队列&#34;&gt;#&lt;/a&gt; Redis stream 结构作为消息队列&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;一条消息只能由一个消费者组中的一个消费者消费。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;topicreloadtask类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#topicreloadtask类&#34;&gt;#&lt;/a&gt; TopicReloadTask 类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;是一个定时任务，用来周期性从数据库中读取所有 topic，并把他们更新到 redis 的白名单集合中，更新时采用删除原来的名单，再写入新的名单（lua 脚本控制原子性，避免删除后失败，未写入新名单）&lt;br&gt;
+用于几个地方：发送端检查是否有该 topic、消费端是否订阅了存在的 topic。实际上本项目只需要用 1 个 topic 即可&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;topicdaemonwarden类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#topicdaemonwarden类&#34;&gt;#&lt;/a&gt; TopicDaemonWarden 类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;用于注册定时执行器 Timer 并周期性调度任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;service包&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#service包&#34;&gt;#&lt;/a&gt; Service 包&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;主要是 redis 包里面的 stream 类：封装了消息队列的发送和接收，提供给数据流转时的调用，其中发送是数据流转的时候推送进消息队列中，而接收这个消费者动作，是一开始就初始化了一个常驻线程去监控 redis 数据（ConsumerConfig 类负责发现消费者方法【带有 messageHub 注解的方法，都在 SSE 模块下】+ 注册消费者），RedisStreamProcessor 负责真正的订阅 stream + 启动线程持续消费消息。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;datalinkx-sse模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datalinkx-sse模块&#34;&gt;#&lt;/a&gt; Datalinkx-sse 模块&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;这一块主要是用于维护 SSE 的连接、传输，与 messagehub 连接紧密，因为 messagehub 模块是用于把消息生产到 topic 中，然后 SSE 中的三个消费者（已在 messagehub 中注册为消费者）把消息读取，并通过 SSE 途径推送到前端。这个 SSE 连接，是用户向 server 模块的控制层请求建立的。这一块 SSE 监督的是新更新的信息，但是后端只会把信息推送到前端，前端负责是要更新哪个任务的状态，在任务结束时，后端会写入数据库。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;datalinkx-client模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datalinkx-client模块&#34;&gt;#&lt;/a&gt; Datalinkx-client 模块&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;主要功能是为项目的每个模块提供远程调用功能，主要是通过 retrofit2 进行远程调用，包括对 flink、datalinkxjob 模块、seatunnel 进行调用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;对flink模块的调用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#对flink模块的调用&#34;&gt;#&lt;/a&gt; 对 flink 模块的调用&lt;/h3&gt;
+&lt;p&gt;通过 HTTP 调用 Flink 的 API，获取作业状态、作业指标、异常信息以及停止作业等操作。对于 client 的返回值，做了一个统一的封装处理，使用了 JsonNode 形式作为响应数据，会以 json 形式返回，类似：&lt;br&gt;
+{&lt;br&gt;
+“user-task-accumulators”: [&lt;br&gt;
+{&lt;br&gt;
+“name”: “numRecordsOut”,&lt;br&gt;
+“type”: “Long”,&lt;br&gt;
+“value”: “123456”&lt;br&gt;
+},&lt;br&gt;
+{&lt;br&gt;
+“name”: “numRecordsIn”,&lt;br&gt;
+“type”: “Long”,&lt;br&gt;
+“value”: “120000”&lt;br&gt;
+}&lt;br&gt;
+]&lt;br&gt;
+}&lt;br&gt;
+ 那么你如果有多种返回数据形式时，定义好 response 类，然后加上这个标志：&lt;br&gt;
+@Data&lt;br&gt;
+public class FlinkJobAccumulators {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@JsonProperty(&amp;quot;user-task-accumulators&amp;quot;)
+List&amp;lt;UserTaskAccumulator&amp;gt; userTaskAccumulators;
+
+@Data
+public static class UserTaskAccumulator &amp;#123;
+    private String name;
+    private String type;
+    private String value;
+&amp;#125;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;}&lt;br&gt;
+ 他就会自动封装到你这个类型中了&lt;br&gt;
+但是，可以直接不用统一的返回值，编写远程调用的时候，返回值直接用自己封装的类&lt;/p&gt;
+&lt;h3 id=&#34;向外暴露一个datalinkxclientutils类&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#向外暴露一个datalinkxclientutils类&#34;&gt;#&lt;/a&gt; 向外暴露一个 DatalinkXClientUtils 类&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;用于创建远程服务客户端的动态代理 + 注入 Spring 容器，供其他类 使用。&lt;br&gt;
+因为目前定义 Retrofit 客户端接口（ FlinkClient、DatalinkXJobClient）本身不具备逻辑，它们需要 Retrofit 动态代理才能工作，所以必须主动创建并注册为 Bean。所以同个 utils 这个类，来创建实例。&lt;/li&gt;
+&lt;li&gt;其他模块如果想要用某个远程接口，那么就调用这个 utils，会把 client 进行动态代理（封装请求之类的操作，因为之前我们只是定义了接口，并不是属于 retrofit 的操作，进行动态代理封装之后，才能够进行请求操作），然后返回实例给调用方。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;common模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#common模块&#34;&gt;#&lt;/a&gt; Common 模块&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;这个模块主要放一些静态变量、异常处理、统一响应结果以及工具类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;connect模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#connect模块&#34;&gt;#&lt;/a&gt; Connect 模块&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;这个模块用于数据库的连接、构建读取、写入信息。首先按照数据源的类型分为 JDBC 和非 JDBC。比如 JDBC 类定义了加载数据库驱动程序、创建连接对象、获取数据库操作对象、执行查询、释放资源、构建 JDBC source（读取）或者 sink（写入）的操作。然后 mysql /oracle 属于 JDBC 类型，就继承 JDBC，把不同的地方进行重写即可。这里只是按照模板模式的方法，先定义了父类，子类只需要实现不同点就行，如果觉得麻烦，可以自己编写每个数据源的读取、写入的方法，然后给数据流转类调用即可。&lt;/li&gt;
+&lt;li&gt;对于读取、写入操作：是需要根据全量、增量、数据表信息、字段等信息，从数据库读取 / 写入此操作，这里封装的是提交给 flinkx 的 Unit 单元，最终会形成这样：&lt;br&gt;
+{&lt;br&gt;
+“job”: {&lt;br&gt;
+“content”: [&lt;br&gt;
+{&lt;br&gt;
+“reader”: {&lt;br&gt;
+“name”: “mysqlreader”,&lt;br&gt;
+“parameter”: {&lt;br&gt;
+“connection”: […],&lt;br&gt;
+“column”: […],&lt;br&gt;
+“where”: “id &amp;gt; 100”,&lt;br&gt;
+“username”: “…”,&lt;br&gt;
+“password”: “…”&lt;br&gt;
+}&lt;br&gt;
+},&lt;br&gt;
+“writer”: {&lt;br&gt;
+“name”: “mysqlwriter”,&lt;br&gt;
+“parameter”: {&lt;br&gt;
+“connection”: […],&lt;br&gt;
+“column”: […],&lt;br&gt;
+“writeMode”: “insert”&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+]&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+ 然后提交给 flinkx 去执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对于如何获取这个 Driver 类，DsDriverFactory 是一个静态工厂类，提供给外界创建 Driver 的实例，外界（数据流转时）会给一个 connectId 给工厂类，根据这个 id 解析出属于哪一个类型，然后把类（MysqlDriver / OracleDriver 等）实例化出来返回给数据流转操作，然后就会根据这个类去获取读取源以及写入源。&lt;/p&gt;
+&lt;p&gt;所以这个模块看起来多，其实内容就两个：1、定义一个数据库实例； 2、向外开放一个工厂类，返回实例给外界&lt;/p&gt;
+&lt;p&gt;新增数据源：新增一个包（与 Driver 同层）然后实现读写即可，因为加载类的时候，会根据包路径来加载，把包放在可以加载到的地方即可。&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/05/13/DatalinkX/</guid>
             <title>DatalinkX</title>
