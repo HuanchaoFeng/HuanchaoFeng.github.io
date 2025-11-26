@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Datalinkx模块讲解2 | Phoenix</title><meta name="author" content="Phoenix"><meta name="copyright" content="Phoenix"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="# Datalinkx-server 模块 Dalinkx 采用分布式的架构模式，这里的分布式，只是说借助了 RPC 通信的一个小型的分布式架构。Datalinkx-server + datalinkx-job 可以简单理解为一个经典的 master + worker 架构。也就是 job 模块是负责干活的，server 负责和前端进行数据交互以及调用 job 模块完成任务。这个模块主要关注控制层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Datalinkx模块讲解2">
+<meta property="og:url" content="http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/index.html">
+<meta property="og:site_name" content="Phoenix">
+<meta property="og:description" content="# Datalinkx-server 模块 Dalinkx 采用分布式的架构模式，这里的分布式，只是说借助了 RPC 通信的一个小型的分布式架构。Datalinkx-server + datalinkx-job 可以简单理解为一个经典的 master + worker 架构。也就是 job 模块是负责干活的，server 负责和前端进行数据交互以及调用 job 模块完成任务。这个模块主要关注控制层">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-11-26T04:14:04.000Z">
+<meta property="article:modified_time" content="2025-11-26T04:16:32.317Z">
+<meta property="article:author" content="Phoenix">
+<meta property="article:tag" content="datalinkx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Datalinkx模块讲解2",
+  "url": "http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-11-26T04:14:04.000Z",
+  "dateModified": "2025-11-26T04:16:32.317Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Phoenix",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Datalinkx模块讲解2',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/default_top_img.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Phoenix</span></a><a class="nav-page-title" href="/"><span class="site-name">Datalinkx模块讲解2</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Datalinkx模块讲解2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-11-26T04:14:04.000Z" title="Created 2025-11-26 12:14:04">2025-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-11-26T04:16:32.317Z" title="Updated 2025-11-26 12:16:32">2025-11-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/datalinkx/">datalinkx</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">711</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>2mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="datalinkx-server模块"><a class="markdownIt-Anchor" href="#datalinkx-server模块">#</a> Datalinkx-server 模块</h2>
+<p>Dalinkx 采用分布式的架构模式，这里的分布式，只是说借助了 RPC 通信的一个小型的分布式架构。Datalinkx-server + datalinkx-job 可以简单理解为一个经典的 master + worker 架构。也就是 job 模块是负责干活的，server 负责和前端进行数据交互以及调用 job 模块完成任务。这个模块主要关注控制层的 JobController、DsController、JobserviceImpl 以及 DsServiceImpl 的实现即可</p>
+<ul>
+<li>
+<p>控制层<br>
+ JobController 主要完成的是一个定时同步流转任务的交互功能，主要包括创建、编辑、删除、手动执行、暂停等功能；DsController 主要完成数据源配置的增删改查功能</p>
+</li>
+<li>
+<p>Service 层<br>
+流转任务业务层主要完成：1、校验计算任务的合法性。2、创建任务并手动调用一次 xxl-job 触发任务，调用 xxl-job 后，会流转到 datalinkx-job 模块的执行器去执行代码。3、修改任务配置。4、查询任务详情。5、删除任务。6、停止任务调度等等功能</p>
+</li>
+<li>
+<p>数据源配置业务层主要完成：数据源创建配置、连通性检查、删除修改配置、获取表信息等功能</p>
+</li>
+</ul>
+<h2 id="datalink-job模块"><a class="markdownIt-Anchor" href="#datalink-job模块">#</a> Datalink-job 模块</h2>
+<p>Dalinkx-job 属于是能够让任务完成的核心模块，这一块集齐了任务提交、任务流转、任务信息获取等多个功能。在 Job 模块，流转任务的生命周期都是基于钩子方法 + 模板实现的，任务由 xxl-job 调度中心通过 netty 回调到 DataTransHandler 执行器中，执行器中注入任务触发类 DataTransferAction，由 doAction 开始一次任务的执行。主要模块是：AbstractDataTransferAction、DataTransferAction、DataTransHandler，这三个模块基本上集齐了主要的功能。<br>
+首先是 AbstractDataTransferAction，这里定义了一个流转任务的模板，定义了 6 个钩子方法（抽象方法，留给子类实现，包括任务开始、结束、开始前构建 reader\writer 信息、任务执行向 flinkx 提交任务、检查状态、执行后记录增量信息），这 6 个钩子方法通过 doaction 这个方法规定执行顺序，串联起整个流转任务的生命周期。然后是 DataTransferAction，这个类继承了模板 AbstractDataTransferAction，分别实现 6 个钩子方法，也就是具体这个流程里的每个环节应该怎么走，编写具体的代码，然后不需要重写 doaction，直接继承父类的 doaction 即可执行。最后是这个 DataTransHandler，这个类主要是作为 xxl-job 的任务执行器，也就是我这个 xxl-job 的任务是交给你的，你来负责帮我执行，然后这个方法中定义了如何调用 doaction 去执行，这就是整个 job 的最核心的三个模块。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Phoenix</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/">http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/datalinkx/">datalinkx</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/" title="Datalinkx模块讲解1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Datalinkx模块讲解1</div></div><div class="info-2"><div class="info-item-1"># Datalinkx-messageHub 与 Datalinkx-SSE  用于 datalinkx-job 和 datalinkx-server 之间的异步通信，这个模块只有在推送流转进度中才使用，job 是生成者，检测流转任务的进度数据后，调用生产者 api 把数据发送到 redis 中，datlainkx-sse 是消费者，注册一个常驻代理线程，实时监控 redis 中的数据，监听到后，回调到标记了 @MessageHub 注解的方法中  # Redis stream 结构作为消息队列  一条消息只能由一个消费者组中的一个消费者消费。  # TopicReloadTask 类  是一个定时任务，用来周期性从数据库中读取所有 topic，并把他们更新到 redis 的白名单集合中，更新时采用删除原来的名单，再写入新的名单（lua 脚本控制原子性，避免删除后失败，未写入新名单） 用于几个地方：发送端检查是否有该 topic、消费端是否订阅了存在的 topic。实际上本项目只需要用 1 个 topic 即可  # TopicDaemonWarden 类  用于注册定时执行器 ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/13/DatalinkX/" title="DatalinkX"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-13</div><div class="info-item-2">DatalinkX</div></div><div class="info-2"><div class="info-item-1">DatalinkX 是一个基于 Flink 的异构数据源流转服务，用来作为数据源之间的数据同步工具，通过抽象异构数据源驱动加借助 FlinkX 开源组件屏蔽数据源间不同的通信协议，通过页面化配置数据同步任务的方式简化数据库同步流程，并通过 Xxl-Job 组件实现定时调度。 # 模块设置  业务数据管理模块：负责管理数据源和同步任务的增删改查。包含数据源管理、任务管理等。 同步任务管理模块：借助 xx1-job 实现任务调度管理，确保异构数据源的定时同步和实时更新需求，同时支持批量任务管理，提高任务调度的效率。 RPC 通信模块：利用 Retrofit2 实现分布式服务间的 RPC 调用，提供高效的数据请求和响应机制支持各模块间的数据传输和服务调用。 数据源驱动模块：负责异构数据源的驱动配置，兼容多类型数据源的连接、读取和写入操作，为业务数据管理和同步提供支持。 消息通道模块：采用 Redis Stream 实现分布式消息队列，保障各模块间的消息通信效率和数据传 5.  输的可靠性。 实时刷新前端模块：通过 SSE 技术实现数据的实时推送，配合 Ant Design 在前端即时刷...</div></div></div></a><a class="pagination-related" href="/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/" title="Datalinkx模块讲解1"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-25</div><div class="info-item-2">Datalinkx模块讲解1</div></div><div class="info-2"><div class="info-item-1"># Datalinkx-messageHub 与 Datalinkx-SSE  用于 datalinkx-job 和 datalinkx-server 之间的异步通信，这个模块只有在推送流转进度中才使用，job 是生成者，检测流转任务的进度数据后，调用生产者 api 把数据发送到 redis 中，datlainkx-sse 是消费者，注册一个常驻代理线程，实时监控 redis 中的数据，监听到后，回调到标记了 @MessageHub 注解的方法中  # Redis stream 结构作为消息队列  一条消息只能由一个消费者组中的一个消费者消费。  # TopicReloadTask 类  是一个定时任务，用来周期性从数据库中读取所有 topic，并把他们更新到 redis 的白名单集合中，更新时采用删除原来的名单，再写入新的名单（lua 脚本控制原子性，避免删除后失败，未写入新名单） 用于几个地方：发送端检查是否有该 topic、消费端是否订阅了存在的 topic。实际上本项目只需要用 1 个 topic 即可  # TopicDaemonWarden 类  用于注册定时执行器 ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Phoenix</div><div class="author-info-description">Every day is a chance to learn something new</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/HuanchaoFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://blog.csdn.net/2301_78214059?type=blog" target="_blank" title=""><i class="fa fa-book-open"></i></a><a class="social-icon" href="/2410673017@mails.szu.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope-open-text"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#datalinkx-server%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text"> Datalinkx-server 模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#datalink-job%E6%A8%A1%E5%9D%97"><span class="toc-number">2.</span> <span class="toc-text"> Datalink-job 模块</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/" title="Datalinkx模块讲解2">Datalinkx模块讲解2</a><time datetime="2025-11-26T04:14:04.000Z" title="Created 2025-11-26 12:14:04">2025-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/" title="Datalinkx模块讲解1">Datalinkx模块讲解1</a><time datetime="2025-11-25T13:40:43.000Z" title="Created 2025-11-25 21:40:43">2025-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/11/BIBM-paper-CFPLM/" title="BIBM paper: CFPLM">BIBM paper: CFPLM</a><time datetime="2025-11-11T11:21:54.000Z" title="Created 2025-11-11 19:21:54">2025-11-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/19/LLaMA-%E6%B7%B7%E5%90%88%E4%B8%93%E5%AE%B6%E6%A8%A1%E5%9E%8B/" title="LLaMA&amp;混合专家模型">LLaMA&amp;混合专家模型</a><time datetime="2025-05-19T10:50:11.000Z" title="Created 2025-05-19 18:50:11">2025-05-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/17/GPT-BertBuild/" title="GPT&amp;BertBuild">GPT&amp;BertBuild</a><time datetime="2025-05-16T16:37:02.000Z" title="Created 2025-05-17 00:37:02">2025-05-17</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By Phoenix</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

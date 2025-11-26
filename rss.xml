@@ -5,8 +5,8 @@
         <link>http://example.com</link>
         <description>Every day is a chance to learn something new</description>
         <language>en</language>
-        <pubDate>Tue, 25 Nov 2025 21:40:43 +0800</pubDate>
-        <lastBuildDate>Tue, 25 Nov 2025 21:40:43 +0800</lastBuildDate>
+        <pubDate>Wed, 26 Nov 2025 12:14:04 +0800</pubDate>
+        <lastBuildDate>Wed, 26 Nov 2025 12:14:04 +0800</lastBuildDate>
         <category>datalinkx</category>
         <category>混合专家模型</category>
         <category>LLaMA</category>
@@ -16,6 +16,32 @@
         <category>GPT</category>
         <category>transformer</category>
         <category>resume</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/</guid>
+            <title>Datalinkx模块讲解2</title>
+            <link>http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/</link>
+            <category>datalinkx</category>
+            <pubDate>Wed, 26 Nov 2025 12:14:04 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;datalinkx-server模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datalinkx-server模块&#34;&gt;#&lt;/a&gt; Datalinkx-server 模块&lt;/h2&gt;
+&lt;p&gt;Dalinkx 采用分布式的架构模式，这里的分布式，只是说借助了 RPC 通信的一个小型的分布式架构。Datalinkx-server + datalinkx-job 可以简单理解为一个经典的 master + worker 架构。也就是 job 模块是负责干活的，server 负责和前端进行数据交互以及调用 job 模块完成任务。这个模块主要关注控制层的 JobController、DsController、JobserviceImpl 以及 DsServiceImpl 的实现即可&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;控制层&lt;br&gt;
+ JobController 主要完成的是一个定时同步流转任务的交互功能，主要包括创建、编辑、删除、手动执行、暂停等功能；DsController 主要完成数据源配置的增删改查功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Service 层&lt;br&gt;
+流转任务业务层主要完成：1、校验计算任务的合法性。2、创建任务并手动调用一次 xxl-job 触发任务，调用 xxl-job 后，会流转到 datalinkx-job 模块的执行器去执行代码。3、修改任务配置。4、查询任务详情。5、删除任务。6、停止任务调度等等功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据源配置业务层主要完成：数据源创建配置、连通性检查、删除修改配置、获取表信息等功能&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;datalink-job模块&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#datalink-job模块&#34;&gt;#&lt;/a&gt; Datalink-job 模块&lt;/h2&gt;
+&lt;p&gt;Dalinkx-job 属于是能够让任务完成的核心模块，这一块集齐了任务提交、任务流转、任务信息获取等多个功能。在 Job 模块，流转任务的生命周期都是基于钩子方法 + 模板实现的，任务由 xxl-job 调度中心通过 netty 回调到 DataTransHandler 执行器中，执行器中注入任务触发类 DataTransferAction，由 doAction 开始一次任务的执行。主要模块是：AbstractDataTransferAction、DataTransferAction、DataTransHandler，这三个模块基本上集齐了主要的功能。&lt;br&gt;
+首先是 AbstractDataTransferAction，这里定义了一个流转任务的模板，定义了 6 个钩子方法（抽象方法，留给子类实现，包括任务开始、结束、开始前构建 reader\writer 信息、任务执行向 flinkx 提交任务、检查状态、执行后记录增量信息），这 6 个钩子方法通过 doaction 这个方法规定执行顺序，串联起整个流转任务的生命周期。然后是 DataTransferAction，这个类继承了模板 AbstractDataTransferAction，分别实现 6 个钩子方法，也就是具体这个流程里的每个环节应该怎么走，编写具体的代码，然后不需要重写 doaction，直接继承父类的 doaction 即可执行。最后是这个 DataTransHandler，这个类主要是作为 xxl-job 的任务执行器，也就是我这个 xxl-job 的任务是交给你的，你来负责帮我执行，然后这个方法中定义了如何调用 doaction 去执行，这就是整个 job 的最核心的三个模块。&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/11/25/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A31/</guid>
             <title>Datalinkx模块讲解1</title>
