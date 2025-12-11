@@ -5,8 +5,8 @@
         <link>http://example.com</link>
         <description>Every day is a chance to learn something new</description>
         <language>en</language>
-        <pubDate>Wed, 26 Nov 2025 12:14:04 +0800</pubDate>
-        <lastBuildDate>Wed, 26 Nov 2025 12:14:04 +0800</lastBuildDate>
+        <pubDate>Thu, 11 Dec 2025 15:37:07 +0800</pubDate>
+        <lastBuildDate>Thu, 11 Dec 2025 15:37:07 +0800</lastBuildDate>
         <category>datalinkx</category>
         <category>混合专家模型</category>
         <category>LLaMA</category>
@@ -16,6 +16,58 @@
         <category>GPT</category>
         <category>transformer</category>
         <category>resume</category>
+        <item>
+            <guid isPermalink="true">http://example.com/2025/12/11/RAG-simple-use/</guid>
+            <title>RAG-simple-use</title>
+            <link>http://example.com/2025/12/11/RAG-simple-use/</link>
+            <category>LLM</category>
+            <category>transformer</category>
+            <pubDate>Thu, 11 Dec 2025 15:37:07 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;外挂知识库RAG&#34;&gt;&lt;a href=&#34;#外挂知识库RAG&#34; class=&#34;headerlink&#34; title=&#34;外挂知识库RAG&#34;&gt;&lt;/a&gt;外挂知识库RAG&lt;/h2&gt;&lt;p&gt;为什么引入：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LLM 的规模越大，大模型训练的成本越高，周期也就越长。那么具有时效性的数据也就无法参与训练，所以也就无法直接回答时效性相关的问题&lt;/li&gt;
+&lt;li&gt;通用的 LLM 没有企业内部数据和用户数据，那么企业想要在保证安全的前提下使用LLM，最好的方式就是把数据全部放在本地，企业数据的业务计算全部在本地完成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;文本切分方式&#34;&gt;&lt;a href=&#34;#文本切分方式&#34; class=&#34;headerlink&#34; title=&#34;文本切分方式&#34;&gt;&lt;/a&gt;文本切分方式&lt;/h3&gt;&lt;h4 id=&#34;固定规则切分&#34;&gt;&lt;a href=&#34;#固定规则切分&#34; class=&#34;headerlink&#34; title=&#34;固定规则切分&#34;&gt;&lt;/a&gt;固定规则切分&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;固定长度切分：按照固定token长度切分（每n个token切一块）&lt;/li&gt;
+&lt;li&gt;固定长度 + 重叠： 减少语义断裂&lt;/li&gt;
+&lt;li&gt;按字符分割： 按照标点符号、换行、空格分割（CharacterTextSplitter）&lt;/li&gt;
+&lt;li&gt;递归切分：按照段落、行、空格、字符的顺序进行切分（先按照段落,若&amp;gt;chunk则按照行，以此类推）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;结构化切分&#34;&gt;&lt;a href=&#34;#结构化切分&#34; class=&#34;headerlink&#34; title=&#34;结构化切分&#34;&gt;&lt;/a&gt;结构化切分&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;标题切分&lt;/li&gt;
+&lt;li&gt;段落切分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;语义切分&#34;&gt;&lt;a href=&#34;#语义切分&#34; class=&#34;headerlink&#34; title=&#34;语义切分&#34;&gt;&lt;/a&gt;语义切分&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;局部语义切分：句子级别embedding + 相邻句子similarity，相似度低则表示语义跳跃，即为切分点&lt;/li&gt;
+&lt;li&gt;句子切分：将文本切成句子，然后按chunk_size拼成一组句子&lt;/li&gt;
+&lt;li&gt;主题切分：做embedding聚类&amp;#x2F;对每个句子进行相似度匹配，把相似句子归为1类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;窗口切分&#34;&gt;&lt;a href=&#34;#窗口切分&#34; class=&#34;headerlink&#34; title=&#34;窗口切分&#34;&gt;&lt;/a&gt;窗口切分&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;滑动窗口&lt;/li&gt;
+&lt;li&gt;动态窗口（根据内容密度调整窗口大小）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;RAG查询优化（怎么找）&#34;&gt;&lt;a href=&#34;#RAG查询优化（怎么找）&#34; class=&#34;headerlink&#34; title=&#34;RAG查询优化（怎么找）&#34;&gt;&lt;/a&gt;RAG查询优化（怎么找）&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;查询重写：用户的原始查询可能表达不清晰或缺少必要的语义信息，利用LLM的能力对query进行重写&lt;/li&gt;
+&lt;li&gt;多查询检索：利用LLM的能力生成多个与query相关的查询问题，同时对向量数据库进行查询&lt;/li&gt;
+&lt;li&gt;混合检索: 采用关键词检索 + 向量检索方式，对召回的n + m个文本进行加权融合，Rerank&lt;/li&gt;
+&lt;li&gt;HyDE：根据query生成一个假想答案，利用文档去查询&lt;/li&gt;
+&lt;li&gt;Rerank&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;检索增强-结构化RAG&#34;&gt;&lt;a href=&#34;#检索增强-结构化RAG&#34; class=&#34;headerlink&#34; title=&#34;检索增强&amp;#x2F;结构化RAG&#34;&gt;&lt;/a&gt;检索增强&amp;#x2F;结构化RAG&lt;/h3&gt;&lt;p&gt;父子、全文需要用到元数据的功能，来实现定位&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;父子文档：增强上下文&lt;/li&gt;
+&lt;li&gt;全文摘要：粗筛到精筛&lt;/li&gt;
+&lt;li&gt;LLM改写召回的多个chunk&lt;/li&gt;
+&lt;li&gt;按顺序拼接召回的chunk\去除重复chunk&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;目前实操遇到的问题&#34;&gt;&lt;a href=&#34;#目前实操遇到的问题&#34; class=&#34;headerlink&#34; title=&#34;目前实操遇到的问题&#34;&gt;&lt;/a&gt;目前实操遇到的问题&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Chunk切分问题：从PDF中解析错误导致文本乱码、跨主题导致embedding混乱（固定切分）&lt;/li&gt;
+&lt;li&gt;检索不准：排名靠前的chunk完全不相关，真正相关的chunk得分排名落后，导致召回效果太差&lt;/li&gt;
+&lt;li&gt;上下文利用不好：多数RAG是把碎片化chunk直接扔给LLM，导致回答质量不稳定&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">http://example.com/2025/11/26/Datalinkx%E6%A8%A1%E5%9D%97%E8%AE%B2%E8%A7%A32/</guid>
             <title>Datalinkx模块讲解2</title>
