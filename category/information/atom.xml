@@ -13,6 +13,7 @@
     <category term="GPT" />
     <category term="transformer" />
     <category term="resume" />
+    <category term="report_export" />
     <entry>
         <id>http://example.com/2025/05/11/resume/</id>
         <title>resume</title>
